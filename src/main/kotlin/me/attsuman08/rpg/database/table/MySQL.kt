@@ -40,7 +40,7 @@ class MySQL {
         val startMillis = DateTime.now().millis
         transaction {
             val result: ResultRow? = PlayerData.select { PlayerData.uuid eq p.uniqueId }.singleOrNull()
-            var address = ""
+            var address: String
             if (result != null && Core.PLAYER_DATA[p] != null) {
                 address = result[PlayerData.addressList]
                 if(!address.contains(p.address.address.hostAddress)) {
