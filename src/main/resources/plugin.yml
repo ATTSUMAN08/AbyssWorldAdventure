@@ -1,0 +1,26 @@
+name: AWATERNA
+version: '${version}'
+main: me.attsuman08.rpg.Core
+api-version: 1.19
+authors: [ ATTSUMAN08 ]
+description: "慌てるな"
+depend:
+  - Kotlin
+  - DecentHolograms
+  - Citizens
+  - LibsDisguises
+  - ProtocolLib
+
+permissions:
+  rpg.developer:
+    default: op
+    description: 開発者用の権限
+  rpg.builder:
+    default: op
+    description: ビルダー用の権限
+
+commands:
+  database:
+    usage: /<command>
+    permission: rpg.developer
+    permission-message: "§cこのコマンドを実行する権限がありません"
