@@ -1,49 +1,54 @@
 package me.attsuman08.rpg.commands.developer
 
 import me.attsuman08.rpg.Core
+import me.attsuman08.rpg.ParticleUtils
 import me.attsuman08.rpg.commands.AbyssCommand
-import me.attsuman08.rpg.database.table.PlayerData
-import me.attsuman08.rpg.extension.runTaskAsync
 import org.bukkit.ChatColor
+import org.bukkit.Particle
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.transactions.transaction
-import org.joda.time.DateTime
-import java.util.*
 
 
 class DatabaseCommand : AbyssCommand {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
-        if(args.isNullOrEmpty()) {
-            sendHelp(sender)
-            return true
-        }
-        if(sender !is Player) {
+        if (sender !is Player) {
             sender.sendMessage("${ChatColor.RED}このコマンドはプレイヤー専用です")
             return true
         }
-
-        sender.sendMessage(args.size.toString())
-        if(args.size >= 1) {
-            if (args[0].equals("load", ignoreCase = true)) {
+        if (args.isNullOrEmpty() || args.isEmpty()) {
+            sendHelp(sender)
+            return true
+        }
+        when(args[0].lowercase()) {
+            "load" -> {
                 Core.DATABASE.loadPlayerData(sender)
-            } else if (args[0].equals("save", ignoreCase = true)) {
+            }
+            "save" -> {
                 Core.DATABASE.savePlayerData(sender)
             }
+            "test" -> {
+                ParticleUtils().spawnCircleParticles(sender.location, Particle.SPELL_WITCH, 5.0, 100)
+            }
+            else -> sendHelp(sender)
         }
         return true
     }
 
-    override fun onTabComplete(sender: CommandSender, command: Command, label: String, args: Array<out String>?): MutableList<String>? {
-        return null
+    override fun onTabComplete(sender: CommandSender, command: Command, label: String, args: Array<out String>?): MutableList<String> {
+        val list = ArrayList<String>()
+        sender.sendMessage(args!!.size.toString())
+        list.add("load")
+        list.add("save")
+        list.add("test")
+        return list
     }
 
     private fun sendHelp(sender: CommandSender) {
+        sender.sendMessage("=====[Command Help]=====")
         sender.sendMessage("/database load")
-        sender.sendMessage("/database save")
+        sender.sendMessage("/database save a")
     }
 
 }

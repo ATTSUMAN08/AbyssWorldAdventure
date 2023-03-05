@@ -1,7 +1,8 @@
 package me.attsuman08.rpg
 
+import me.attsuman08.rpg.commands.AbyssCommand
 import me.attsuman08.rpg.commands.developer.DatabaseCommand
-import me.attsuman08.rpg.database.table.MySQL
+import me.attsuman08.rpg.database.MySQL
 import me.attsuman08.rpg.extension.runTaskAsync
 import me.attsuman08.rpg.extension.runTaskTimerAsync
 import me.attsuman08.rpg.player.PlayerStorage
@@ -18,14 +19,21 @@ class Core : JavaPlugin() {
     companion object {
         lateinit var PLUGIN: Core
             private set
-        val DATABASE = MySQL()
+        lateinit var DATABASE: MySQL
+            private set
         val PLAYER_DATA = HashMap<Player, ResultRow>()
         val PLAYER_DATA_STORAGE = HashMap<Player, PlayerStorage>()
         val RESPAWN_LOCATION = Location(Bukkit.getWorld("world"), 0.5, 1801.0, 0.5, -180F, 0F)
+
+        fun commandRegister(cmd: String, cmdClass: AbyssCommand) {
+            Bukkit.getPluginCommand(cmd)!!.setExecutor(cmdClass)
+            Bukkit.getPluginCommand(cmd)!!.tabCompleter = cmdClass
+        }
     }
 
     override fun onEnable() {
         PLUGIN = this
+        DATABASE = MySQL()
         ConfigManager().init()
         Bukkit.getPluginManager().registerEvents(Events(), this)
         DATABASE.connect()
@@ -47,9 +55,10 @@ class Core : JavaPlugin() {
             world.setGameRule(GameRule.DO_WEATHER_CYCLE, false)
             world.setGameRule(GameRule.RANDOM_TICK_SPEED, 0)
         }
-        getCommand("database")!!.setExecutor(DatabaseCommand())
 
         runTaskAsync {
+            commandRegister("database", DatabaseCommand())
+
             for (p in Bukkit.getOnlinePlayers()) {
                 DATABASE.loadPlayerData(p)
             }

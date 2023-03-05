@@ -1,5 +1,6 @@
 package me.attsuman08.rpg.database.table
 
+import me.attsuman08.rpg.database.textArray
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.jodatime.datetime
 
@@ -17,4 +18,7 @@ object PlayerData : Table() {
 
     // 冒険者ランク
     val rank = text("rank")
+
+    // 接続に使用したIPアドレス一覧 (Array)
+    val addressListArray = textArray("address_list_array")
 }

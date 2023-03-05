@@ -5,5 +5,4 @@ import org.bukkit.command.TabCompleter
 
 
 interface AbyssCommand : CommandExecutor, TabCompleter {
-
 }

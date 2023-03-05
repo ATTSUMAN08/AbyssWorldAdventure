@@ -3,7 +3,7 @@ version: '${version}'
 main: me.attsuman08.rpg.Core
 api-version: 1.19
 authors: [ ATTSUMAN08 ]
-description: "慌てるな"
+description: "Abyss World Adventure"
 depend:
   - Kotlin
   - DecentHolograms
@@ -23,4 +23,4 @@ commands:
   database:
     usage: /<command>
     permission: rpg.developer
-    permission-message: "§cこのコマンドを実行する権限がありません"
+    permission-message: You don't have <permission>

@@ -1,6 +1,7 @@
-package me.attsuman08.rpg.database.table
+package me.attsuman08.rpg.database
 
 import me.attsuman08.rpg.Core
+import me.attsuman08.rpg.database.table.PlayerData
 import me.attsuman08.rpg.player.PlayerStorage
 import me.attsuman08.rpg.player.Rank
 import org.bukkit.ChatColor
@@ -70,6 +71,9 @@ class MySQL {
                     it[uuid] = p.uniqueId
                     it[lastLogin] = DateTime.now()
                     it[addressList] = p.address.address.hostAddress
+
+                    val list: Array<String> = arrayOf(p.address.address.hostAddress)
+                    it[addressListArray] = list
                     it[rank] = "NOVICE"
                 }
             }
