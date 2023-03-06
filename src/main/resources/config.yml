@@ -6,3 +6,11 @@ Database:
   Port: 3306
   User: Username
   Password: Password
+
+Sounds:
+  Attack1: "https://example.com"
+  Attack2: "https://example.com"
+  Attack3: "https://example.com"
+
+  Damage1: "https://example.com"
+  Damage2: "https://example.com"

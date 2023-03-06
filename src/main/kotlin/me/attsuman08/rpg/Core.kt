@@ -2,9 +2,14 @@ package me.attsuman08.rpg
 
 import me.attsuman08.rpg.commands.AbyssCommand
 import me.attsuman08.rpg.commands.developer.DatabaseCommand
+import me.attsuman08.rpg.commands.developer.Som3Command
+import me.attsuman08.rpg.config.ConfigLoader
 import me.attsuman08.rpg.database.MySQL
 import me.attsuman08.rpg.extension.runTaskAsync
 import me.attsuman08.rpg.extension.runTaskTimerAsync
+import me.attsuman08.rpg.listener.MainListener
+import me.attsuman08.rpg.listener.ProtocolListener
+import me.attsuman08.rpg.listener.SoundListener
 import me.attsuman08.rpg.player.PlayerStorage
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
@@ -34,8 +39,10 @@ class Core : JavaPlugin() {
     override fun onEnable() {
         PLUGIN = this
         DATABASE = MySQL()
-        ConfigManager().init()
-        Bukkit.getPluginManager().registerEvents(Events(), this)
+        ConfigLoader().init()
+        Bukkit.getPluginManager().registerEvents(MainListener(), this)
+        Bukkit.getPluginManager().registerEvents(SoundListener(), this)
+        ProtocolListener().disableBlackHeart()
         DATABASE.connect()
         for (world in Bukkit.getWorlds()) {
             world.setGameRule(GameRule.DROWNING_DAMAGE, false)
@@ -54,10 +61,12 @@ class Core : JavaPlugin() {
             world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false)
             world.setGameRule(GameRule.DO_WEATHER_CYCLE, false)
             world.setGameRule(GameRule.RANDOM_TICK_SPEED, 0)
+            world.setGameRule(GameRule.MOB_GRIEFING, false)
         }
 
         runTaskAsync {
             commandRegister("database", DatabaseCommand())
+            commandRegister("som3", Som3Command())
 
             for (p in Bukkit.getOnlinePlayers()) {
                 DATABASE.loadPlayerData(p)

@@ -10,6 +10,8 @@ depend:
   - Citizens
   - LibsDisguises
   - ProtocolLib
+  - WorldGuard
+  - OpenAudioMc
 
 permissions:
   rpg.developer:
@@ -21,6 +23,10 @@ permissions:
 
 commands:
   database:
+    usage: /<command>
+    permission: rpg.developer
+    permission-message: You don't have <permission>
+  som3:
     usage: /<command>
     permission: rpg.developer
     permission-message: You don't have <permission>

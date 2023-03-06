@@ -32,7 +32,8 @@ enum class Rank {
     },
     WHITE {
         override fun setRank(p: Player) {
-            p.playerListName(Component.text("${ChatColor.WHITE}${ChatColor.BOLD}[白笛] ${p.name}"))
+            //p.playerListName(Component.text("${ChatColor.WHITE}${ChatColor.BOLD}[白笛] ${p.name}"))
+            p.playerListName(Component.text("${ChatColor.AQUA}[MVP+] ${p.name}"))
         }
     };
 

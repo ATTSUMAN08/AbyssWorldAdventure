@@ -1,9 +1,9 @@
-package me.attsuman08.rpg
+package me.attsuman08.rpg.listener
 
+import me.attsuman08.rpg.Core
 import me.attsuman08.rpg.extension.runTaskAsync
 import me.attsuman08.rpg.player.PlayerUtil
 import org.bukkit.Material
-import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -13,11 +13,9 @@ import org.bukkit.event.entity.FoodLevelChangeEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
-import org.joda.time.DateTime
-import java.util.Date
 import kotlin.math.floor
 
-class Events : Listener {
+class MainListener : Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {

@@ -41,11 +41,11 @@ class MySQL {
         val startMillis = DateTime.now().millis
         transaction {
             val result: ResultRow? = PlayerData.select { PlayerData.uuid eq p.uniqueId }.singleOrNull()
-            var address: String
             if (result != null && Core.PLAYER_DATA[p] != null) {
-                address = result[PlayerData.addressList]
-                if(!address.contains(p.address.address.hostAddress)) {
-                    address = "${address},${p.address.address.hostAddress}"
+                var address = result[PlayerData.addressList]
+                val playerAddress = p.address.address.hostAddress
+                if(!address.contains(playerAddress)) {
+                    address += playerAddress
                 }
                 PlayerData.update({ PlayerData.uuid eq p.uniqueId }) {
                     it[mcid] = p.name
@@ -70,10 +70,8 @@ class MySQL {
                     it[mcid] = p.name
                     it[uuid] = p.uniqueId
                     it[lastLogin] = DateTime.now()
-                    it[addressList] = p.address.address.hostAddress
-
                     val list: Array<String> = arrayOf(p.address.address.hostAddress)
-                    it[addressListArray] = list
+                    it[addressList] = list
                     it[rank] = "NOVICE"
                 }
             }

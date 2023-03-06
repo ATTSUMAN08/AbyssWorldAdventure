@@ -36,6 +36,10 @@ repositories {
         name = 'dmulloy2-repo'
         url = 'https://repo.dmulloy2.net/repository/public/'
     }
+    maven {
+        name = 'worldguard-repo'
+        url = 'https://maven.enginehub.org/repo/'
+    }
 }
 
 dependencies {
@@ -55,6 +59,7 @@ dependencies {
     compileOnly("LibsDisguises:LibsDisguises:10.0.26")
     compileOnly("net.citizensnpcs:citizensapi:2.0.30-SNAPSHOT")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.8.0")
+    compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.1.0-SNAPSHOT")
     compileOnly(files("libs/openaudiomc-6.7.7.jar"))
 }
 

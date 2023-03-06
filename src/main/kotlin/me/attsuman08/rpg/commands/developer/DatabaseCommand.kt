@@ -1,7 +1,7 @@
 package me.attsuman08.rpg.commands.developer
 
 import me.attsuman08.rpg.Core
-import me.attsuman08.rpg.ParticleUtils
+import me.attsuman08.rpg.particle.ParticleUtils
 import me.attsuman08.rpg.commands.AbyssCommand
 import org.bukkit.ChatColor
 import org.bukkit.Particle
@@ -31,6 +31,9 @@ class DatabaseCommand : AbyssCommand {
             "test" -> {
                 ParticleUtils().spawnCircleParticles(sender.location, Particle.SPELL_WITCH, 5.0, 100)
             }
+            "test2" -> {
+                ParticleUtils().createShoot(sender, Particle.SPELL_WITCH, 5, 5.0)
+            }
             else -> sendHelp(sender)
         }
         return true
@@ -38,17 +41,19 @@ class DatabaseCommand : AbyssCommand {
 
     override fun onTabComplete(sender: CommandSender, command: Command, label: String, args: Array<out String>?): MutableList<String> {
         val list = ArrayList<String>()
-        sender.sendMessage(args!!.size.toString())
-        list.add("load")
-        list.add("save")
-        list.add("test")
+        val argsSize = args!!.size
+        if(argsSize == 1) {
+            list.add("load")
+            list.add("save")
+            list.add("test")
+        }
         return list
     }
 
     private fun sendHelp(sender: CommandSender) {
         sender.sendMessage("=====[Command Help]=====")
         sender.sendMessage("/database load")
-        sender.sendMessage("/database save a")
+        sender.sendMessage("/database save")
     }
 
 }
