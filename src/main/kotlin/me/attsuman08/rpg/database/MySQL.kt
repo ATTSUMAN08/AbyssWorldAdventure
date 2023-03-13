@@ -16,8 +16,8 @@ class MySQL {
     fun connect() {
         val cfg = Core.PLUGIN.config
         TransactionManager.defaultDatabase = Database.connect(
-            "jdbc:postgresql://${cfg.getString("Database.Address")}:${cfg.getString("Database.Port")}/${cfg.getString("Database.Name")}",
-            driver = "org.postgresql.Driver",
+            url = "jdbc:mysql://${cfg.getString("Database.Address")}:${cfg.getString("Database.Port")}/${cfg.getString("Database.Name")}",
+            driver = "com.mysql.cj.jdbc.Driver",
             user = cfg.getString("Database.User")!!,
             password = cfg.getString("Database.Password")!!
         )

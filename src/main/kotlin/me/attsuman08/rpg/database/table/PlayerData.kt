@@ -14,7 +14,7 @@ object PlayerData : Table() {
     val lastLogin = datetime("last_login")
 
     // 接続に使用したIPアドレス一覧
-    val addressList = textArray("address_list")
+    //val addressList = textArray("address_list")
 
     // 冒険者ランク
     val rank = text("rank")
